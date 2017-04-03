@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.akademiakodu.model.Gif;
 import pl.akademiakodu.repository.GifRepository;
 
-import java.util.List;
-
 /**
  * Created by User on 31.03.2017.
  */
@@ -20,14 +18,13 @@ public class GifController {
     private GifRepository gifRepository;
 
     @RequestMapping("/")
-    public String listGifts(ModelMap modelMap)
-    {
-        List<Gif> allGifs = gifRepository.getAllGifs();
-        modelMap.put("gifs",allGifs);
+    public String listGifts(ModelMap modelMap){
+       modelMap.addAttribute("gifs", gifRepository.getAllGifs());
+
         return "home";
     }
 
-    @RequestMapping("/gif/{name}")
+    @RequestMapping("/gif/")
     public String gifDetails(@PathVariable String name, ModelMap modelMap){
         Gif gif = gifRepository.findByName(name);
         modelMap.put("gif",gif);
