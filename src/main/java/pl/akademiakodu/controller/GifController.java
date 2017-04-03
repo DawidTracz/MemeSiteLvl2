@@ -25,7 +25,7 @@ public class GifController {
         return "home";
     }
 
-    @RequestMapping("/gif/")
+    @RequestMapping("/gif/{name}")
     public String gifDetails(@PathVariable String name, ModelMap modelMap) {
         Gif gif = gifRepository.findByName(name);
         modelMap.put("gif", gif);
@@ -34,10 +34,8 @@ public class GifController {
 
 
     @GetMapping("/favorites")
-    public String gifDetails(ModelMap modelMap) {
-        modelMap.addAttribute("favorites", gifRepository.getAllGifs());
-
-
+    public String getFavorites(ModelMap modelMap) {
+        modelMap.addAttribute("gifs", gifRepository.getFavorites());
         return "favorites";
     }
 
